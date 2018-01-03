@@ -9,11 +9,11 @@ mkdir neuron
 mv iv-19.tar.gz neuron
 mv nrn-7.5.tar.gz neuron
 cd neuron
-tar xzf iv-mm.tar.gz
-tar xzf nrn-nn.tar.gz
+tar xzf iv-19.tar.gz
+tar xzf nrn-7.5.tar.gz
 # renaming the new directories iv and nrn makes life simpler later on
-mv iv-mm iv
-mv nrn-nn nrn
+mv iv-19 iv
+mv nrn-7.5 nrn
 
 #Install IV
 
