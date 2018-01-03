@@ -5,10 +5,10 @@ cd $HOME
 wget https://neuron.yale.edu/ftp/neuron/versions/v7.5/nrn-7.5.tar.gz
 wget https://neuron.yale.edu/ftp/neuron/versions/v7.5/iv-19.tar.gz
 
-mkdir neuron
+mkdir neuron-install
 mv iv-19.tar.gz neuron
 mv nrn-7.5.tar.gz neuron
-cd neuron
+cd neuron-install
 tar xzf iv-19.tar.gz
 tar xzf nrn-7.5.tar.gz
 # renaming the new directories iv and nrn makes life simpler later on
@@ -26,17 +26,17 @@ make install
 
 cd ..
 cd nrn
-./configure --prefix=`pwd` --with-iv=$HOME/neuron/iv --with-nrnpython
+./configure --prefix=`pwd` --with-iv=$HOME/neuron-install/iv --with-nrnpython
 make
 make install
 
 
 #Make it easy to use
 
-echo 'source $HOME/neuron/nrnenv' >> $HOME/.bashrc
+echo 'source $HOME/neuron-install/nrnenv' >> $HOME/.bashrc
 
-touch $HOME/neuron/nrnenv
-echo 'export IV=$HOME/neuron/iv' >> $HOME/neuron/nrnenv
-echo 'export N=$HOME/neuron/nrn' >> $HOME/neuron/nrnenv
-echo 'export CPU=x86_64' >> $HOME/neuron/nrnenv
-echo 'export PATH="$IV/$CPU/bin:$N/$CPU/bin:$PATH"' >> $HOME/neuron/nrnenv
+touch $HOME/neuron-install/nrnenv
+echo 'export IV=$HOME/neuron-install/iv' >> $HOME/neuron-install/nrnenv
+echo 'export N=$HOME/neuron-install/nrn' >> $HOME/neuron-install/nrnenv
+echo 'export CPU=x86_64' >> $HOME/neuron-install/nrnenv
+echo 'export PATH="$IV/$CPU/bin:$N/$CPU/bin:$PATH"' >> $HOME/neuron-install/nrnenv
