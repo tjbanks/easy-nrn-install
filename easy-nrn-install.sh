@@ -7,8 +7,8 @@ cd $HOME
 touch nrnenv
 
 echo 'export INSTALL_DIR=$HOME' >> nrnenv
-echo 'export NRN_DIR=$INSTALL_DIR/neuron_install' >> nrnenv
 echo 'export MPI_DIR=$INSTALL_DIR/mpi_install' >> nrnenv
+echo 'export NRN_DIR=$INSTALL_DIR/neuron_install' >> nrnenv
 source nrnenv
 
 mkdir $MPI_DIR
