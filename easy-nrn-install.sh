@@ -49,7 +49,7 @@ make install
 
 #Make it easy to use
 cd $HOME
-echo 'source $HOME/nrnenv' >> $HOME/.bashrc
+echo 'source $HOME/nrnenv' >> $HOME/.profile
 
 echo 'export PATH="$MPI_DIR/install/bin:$PATH"' >> nrnenv
 echo 'export IV=$NRN_DIR/iv' >> nrnenv
