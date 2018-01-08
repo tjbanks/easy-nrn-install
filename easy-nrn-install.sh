@@ -51,7 +51,7 @@ make install
 cd $HOME
 echo 'source $HOME/nrnenv' >> $HOME/.bashrc
 
-echo 'export PATH="$MPI/install/bin:$PATH"' >> nrnenv
+echo 'export PATH="$MPI_DIR/install/bin:$PATH"' >> nrnenv
 echo 'export IV=$NRN_DIR/iv' >> nrnenv
 echo 'export N=$NRN_DIR/nrn' >> nrnenv
 echo 'export CPU=x86_64' >> nrnenv
