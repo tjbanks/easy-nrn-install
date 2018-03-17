@@ -1,3 +1,4 @@
+#Tyler Banks
 #Grab MPI Neuron and IV, install
 #Instructions from https://www.neuron.yale.edu/neuron/download/getstd
 #http://www.mpich.org/static/downloads/3.2.1/mpich-3.2.1-installguide.pdf
@@ -49,7 +50,7 @@ make install
 
 #Make it easy to use
 cd $HOME
-echo 'source $HOME/nrnenv' >> $HOME/.profile
+echo 'source $HOME/nrnenv' >> $HOME/.bashrc
 
 echo 'export PATH="$MPI_DIR/install/bin:$PATH"' >> nrnenv
 echo 'export IV=$NRN_DIR/iv' >> nrnenv
