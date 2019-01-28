@@ -23,4 +23,4 @@ make install
 # Very important! This sets the pythonpath variable
 source nest-simulator-2.16.0-build/bin/nest_vars.sh
 
-echo "$1/nest/source nest-simulator-2.16.0-build/bin/nest_vars.sh" >> $HOME/.bashrc
+echo "source $1/nest/nest-simulator-2.16.0-build/bin/nest_vars.sh" >> $HOME/.bashrc
