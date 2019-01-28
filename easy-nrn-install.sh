@@ -68,4 +68,4 @@ echo 'export CPU=x86_64' >> $1/nrnenv
 echo 'export PATH="$IV/$CPU/bin:$N/$CPU/bin:$PATH"' >> $1/nrnenv
 
 source $1/nrnenv
-#echo "source $1/nrnenv" >> $HOME/.bashrc
+echo "source $1/nrnenv" >> $HOME/.bashrc

@@ -27,4 +27,4 @@ echo "export PATH=\"$1/conda/bin:$PATH\"" >> $1/activate_conda.sh
 echo "source activate py36" >> $1/activate_conda.sh
 
 source $1/activate_conda.sh
-#echo "source $1/activate_conda.sh" >> $HOME/.bashrc
+echo "source $1/activate_conda.sh" >> $HOME/.bashrc

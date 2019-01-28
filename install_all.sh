@@ -12,3 +12,4 @@ mkdir $1/utils
 ./easy-bmtk-install.sh $1/utils
 ./easy-nest-install.sh $1/utils
 
+echo "Changes have been made to your ~/.bashrc file. Be sure to review these changes before running this script again"
