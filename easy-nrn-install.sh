@@ -4,19 +4,27 @@
 #http://www.mpich.org/static/downloads/3.2.1/mpich-3.2.1-installguide.pdf
 #https://www.neuron.yale.edu/phpBB/viewtopic.php?t=3062
 
-cd $HOME
-touch nrnenv
+if [ -z $1 ]; then
+        echo "Directory to install not specified, exiting."
+        exit 0
+else
+        echo "Installing Neuron into $1/nrn"
+fi
 
-echo 'export INSTALL_DIR=$HOME' >> nrnenv
-echo 'export MPI_DIR=$INSTALL_DIR/mpi_install' >> nrnenv
-echo 'export NRN_DIR=$INSTALL_DIR/neuron_install' >> nrnenv
-source nrnenv
+
+#cmd line arg $1
+touch $1/nrnenv
+mkdir $1/nrn
+echo "export NRN_INSTALL_DIR=$1/nrn" >> $1/nrnenv
+echo 'export MPI_DIR=$NRN_INSTALL_DIR/mpi_install' >> $1/nrnenv
+echo 'export NRN_DIR=$NRN_INSTALL_DIR/neuron_install' >> $1/nrnenv
+source $1/nrnenv
 
 mkdir $MPI_DIR
 cd $MPI_DIR
 mkdir install
 wget http://www.mpich.org/static/downloads/3.2.1/mpich-3.2.1.tar.gz
-tar -xvf ./mpich-3.2.1.tar.gz
+tar -xf ./mpich-3.2.1.tar.gz
 cd mpich-3.2.1/
 ./configure --prefix=$MPI_DIR/install '--enable-shared' --disable-fortran '--disable-f77' '--disable-fc'
 make
@@ -44,17 +52,20 @@ make install
 
 cd ..
 cd nrn
-./configure --prefix=`pwd` --with-iv=$NRN_DIR/iv --with-nrnpython --with-paranrn
+./configure --prefix=`pwd` --with-iv=$NRN_DIR/iv --with-nrnpython=`which python` --with-paranrn
 make
 make install
 
-#Make it easy to use
-cd $HOME
-echo 'source $HOME/nrnenv' >> $HOME/.bashrc
+cd neuron_install/nrn/src/nrnpython/
+python setup.py install
 
-echo 'export PATH="$MPI_DIR/install/bin:$PATH"' >> nrnenv
-echo 'export IV=$NRN_DIR/iv' >> nrnenv
-echo 'export N=$NRN_DIR/nrn' >> nrnenv
-echo 'export CPU=x86_64' >> nrnenv
-echo 'export PATH="$IV/$CPU/bin:$N/$CPU/bin:$PATH"' >> nrnenv
-source nrnenv
+#Make it easy to use
+
+echo 'export PATH="$MPI_DIR/install/bin:$PATH"' >> $1/nrnenv
+echo 'export IV=$NRN_DIR/iv' >> $1/nrnenv
+echo 'export N=$NRN_DIR/nrn' >> $1/nrnenv
+echo 'export CPU=x86_64' >> $1/nrnenv
+echo 'export PATH="$IV/$CPU/bin:$N/$CPU/bin:$PATH"' >> $1/nrnenv
+
+source $1/nrnenv
+#echo "source $1/nrnenv" >> $HOME/.bashrc
