@@ -47,6 +47,7 @@ cd openmpi-4.0.1
 make -j install
 
 echo "Adding openmpi to .bashrc"
+echo "#BEGIN TYLER'S INSTALL SCRIPT" >> ~/.bashrc
 export PATH=$installdir/openmpi-install:$PATH
 
 echo "export PATH=$installdir/openmpi-install:\$PATH" >> ~/.bashrc
@@ -89,6 +90,8 @@ python3 setup.py install --user
 
 echo "Adding load module python3 to .bashrc, type python3 to use python"
 echo "module load python/python-3.6.5" >> ~/.bashrc
+echo "module load gcc/gcc-4.9.4" >> ~/.bashrc
+echo "#END TYLER'S INSTALL SCRIPT" >> ~/.bashrc
 echo ""
 echo "DONE."
 echo "Log out then log back in for a working installation, or type:"
