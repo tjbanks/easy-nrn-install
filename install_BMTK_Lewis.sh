@@ -1,7 +1,7 @@
 #!/bin/bash
-#uncomment the following two lines to debug script
-set -x
-trap read debug
+#Uncomment the following two lines to debug script line by line
+#set -x
+#trap read debug
 
 # Adapted from Songjie Wang's script located here: https://github.com/wangso/BMTK_Lewis/blob/master/Lewis_setup.sh
 
@@ -86,6 +86,9 @@ echo "Installing bmtk"
 git clone https://github.com/AllenInstitute/bmtk.git
 cd bmtk
 python3 setup.py install --user
+
+echo "Adding load module python3 to .bashrc, type python3 to use python"
+echo "module load python/python-3.6.5" >> ~/.bashrc
 
 # in Lewis sbatch files, remove "source activate bmtk_env" and "source deactivate" 
 # in Lewis sbatch files,  remove "module load openmpi/openmpi-2.0.0" and "module unload openmpi/openmpi-2.0.0"
