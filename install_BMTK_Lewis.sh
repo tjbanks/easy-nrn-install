@@ -49,7 +49,7 @@ make -j install
 echo "Adding openmpi to .bashrc"
 export PATH=$installdir/openmpi-install:$PATH
 
-echo "export PATH=$installdir/openmpi-install:$PATH" >> ~/.bashrc
+echo "export PATH=$installdir/openmpi-install:\$PATH" >> ~/.bashrc
 
 cd $installdir
 echo "Installing mpi4py"
@@ -78,8 +78,8 @@ make -j install
 export PYTHONPATH=$installdir/neuron/nrn/lib/python:$PYTHONPATH
 export PATH=$installdir/neuron/nrn/x86_64/bin:$PATH
 
-echo "export PYTHONPATH=$installdir/neuron/nrn/lib/python:$PYTHONPATH" >> ~/.bashrc
-echo "export PATH=$installdir/neuron/nrn/x86_64/bin:$PATH" >> ~/.bashrc
+echo "export PYTHONPATH=$installdir/neuron/nrn/lib/python:\$PYTHONPATH" >> ~/.bashrc
+echo "export PATH=$installdir/neuron/nrn/x86_64/bin:\$PATH" >> ~/.bashrc
 
 cd $installdir
 echo "Installing bmtk"
@@ -89,6 +89,11 @@ python3 setup.py install --user
 
 echo "Adding load module python3 to .bashrc, type python3 to use python"
 echo "module load python/python-3.6.5" >> ~/.bashrc
+echo ""
+echo "DONE."
+echo "Log out then log back in for a working installation, or type:"
+echo "source ~/.bashrc"
+
 
 # in Lewis sbatch files, remove "source activate bmtk_env" and "source deactivate" 
 # in Lewis sbatch files,  remove "module load openmpi/openmpi-2.0.0" and "module unload openmpi/openmpi-2.0.0"
