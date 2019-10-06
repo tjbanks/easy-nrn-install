@@ -60,7 +60,7 @@ cd mpi4py-3.0.2
 #nano mpi.cfg
 #	under [openmpi]
 #	change  mpi_dir=$installdir/opoenmpi-4.0.1-install 
-sed -i "s/mpi_dir.*=.*/mpi_dir=$installdir/openmpi-install/" $installdir/mpi4py-3.0.2/mpi.cfg
+sed -i "s|mpi_dir.*=.*|mpi_dir=$installdir/openmpi-install|" $installdir/mpi4py-3.0.2/mpi.cfg
 python3 setup.py build --mpi=openmpi
 python3 setup.py install --user
 
