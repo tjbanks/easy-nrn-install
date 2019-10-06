@@ -88,6 +88,10 @@ git clone https://github.com/AllenInstitute/bmtk.git
 cd bmtk
 python3 setup.py install --user
 
+#BMTK versions fix 
+#See https://github.com/AllenInstitute/bmtk/issues/66
+pip install pandas==0.20.3 h5py==2.7.0 --user
+
 echo "Adding load module python3 to .bashrc, type python3 to use python"
 echo "module load python/python-3.6.5" >> ~/.bashrc
 echo "module load gcc/gcc-4.9.4" >> ~/.bashrc
