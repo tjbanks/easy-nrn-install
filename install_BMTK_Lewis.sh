@@ -1,4 +1,7 @@
 #!/bin/bash
+#uncomment the following two lines to debug script
+set -x
+trap read debug
 
 # Adapted from Songjie Wang's script located here: https://github.com/wangso/BMTK_Lewis/blob/master/Lewis_setup.sh
 
@@ -19,25 +22,34 @@ module load automake/automake-1.16.1-gcc-4.9.2
 module load autoconf/autoconf-2.69-gcc-4.9.2
 export OMPI_MCA_btl_openib_if_include='mlx5_3:1'
 module load libtool/libtool-2.4.6-gcc-4.9.2
-module load gcc/gcc-5.4.0
+#module load gcc/gcc-5.4.0
+module load gcc/gcc-4.9.4
 module load bison/bison-3.0.4
 module load flex/flex-2.6.4
 module load python/python-3.6.5
 
 cd $installdir
-echo "Installing openmpi-4.0.1" #(I had to install this myself as the Lewis library won't work, at least for me)
+echo "Installing pip"
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python3 get-pip.py --user
+
+cd $installdir
+echo "Installing openmpi" #(I had to install this myself as the Lewis library won't work, at least for me)
 echo "Downloading..."
+mkdir openmpi-install
 wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.1.tar.gz
-mkdir openmpi-4.0.1
-mkdir openmpi-4.0.1-install
-mv openmpi-4.0.1.tar.gz openmpi-4.0.1/
+tar -xzvf openmpi-4.0.1.tar.gz
 cd openmpi-4.0.1
-tar -xzvf openmpi-4.0.1.tar.gz openmpi-4.0.1/
-./configure --prefix=$installdir/openmpi-4.0.1-install 
+#wget http://www.mpich.org/static/downloads/3.2.1/mpich-3.2.1.tar.gz
+#tar -xf ./mpich-3.2.1.tar.gz
+#cd mpich-3.2.1
+./configure --prefix=$installdir/openmpi-install #--enable-shared --disable-fortran --disable-f77 --disable-fc 
 make -j install
 
 echo "Adding openmpi to .bashrc"
-export PATH=$installdir/openmpi-4.0.1-install:$PATH
+export PATH=$installdir/openmpi-install:$PATH
+
+echo "export PATH=$installdir/openmpi-install:$PATH" >> ~/.bashrc
 
 cd $installdir
 echo "Installing mpi4py"
@@ -48,9 +60,9 @@ cd mpi4py-3.0.2
 #nano mpi.cfg
 #	under [openmpi]
 #	change  mpi_dir=$installdir/opoenmpi-4.0.1-install 
-sed -i 's/mpi_dir.*/mpi_dir=$installdir\/opoenmpi-4.0.1-install/' $installdir/mpi4py-3.0.2/mpi.cfg
-python setup.py build --mpi=openmpi
-python setup.py install --user
+sed -i "s/mpi_dir.*=.*/mpi_dir=$installdir/openmpi-install/" $installdir/mpi4py-3.0.2/mpi.cfg
+python3 setup.py build --mpi=openmpi
+python3 setup.py install --user
 
 cd $installdir
 echo "installing neuron with openmpi"
@@ -59,18 +71,21 @@ cd neuron
 git clone http://github.com/neuronsimulator/nrn
 cd nrn
 sh build.sh
-./configure --prefix=`pwd` --without-x --with-paranrn=$installdir/opoenmpi-4.0.1-install/lib/openmpi --with-nrnpython=python --disable-rx3d
+./configure --prefix=`pwd` --without-x --with-paranrn=$installdir/openmpi-install/lib/openmpi --with-nrnpython=python --disable-rx3d
 make -j install
 
 # Put these lines in your ~/.bashrc file
 export PYTHONPATH=$installdir/neuron/nrn/lib/python:$PYTHONPATH
-export PATH=#installdir/neuron/nrn/x86_64/bin:$PATH
+export PATH=$installdir/neuron/nrn/x86_64/bin:$PATH
+
+echo "export PYTHONPATH=$installdir/neuron/nrn/lib/python:$PYTHONPATH" >> ~/.bashrc
+echo "export PATH=$installdir/neuron/nrn/x86_64/bin:$PATH" >> ~/.bashrc
 
 cd $installdir
 echo "Installing bmtk"
 git clone https://github.com/AllenInstitute/bmtk.git
 cd bmtk
-python setup.py install --user
+python3 setup.py install --user
 
 # in Lewis sbatch files, remove "source activate bmtk_env" and "source deactivate" 
 # in Lewis sbatch files,  remove "module load openmpi/openmpi-2.0.0" and "module unload openmpi/openmpi-2.0.0"
