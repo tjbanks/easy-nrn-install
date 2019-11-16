@@ -22,6 +22,7 @@ rm -rf $1/conda_temp
 
 export PATH="$1/conda/bin:$PATH"
 conda init bash
+source ~/.bashrc
 conda create -y -n py36 python=3.6 anaconda
 conda activate py36
 
