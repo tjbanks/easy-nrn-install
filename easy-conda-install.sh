@@ -11,9 +11,12 @@ fi
 
 mkdir $1/conda_temp
 cd $1/conda_temp
-wget https://repo.continuum.io/archive/Anaconda3-2018.12-Linux-x86_64.sh
-chmod +x Anaconda3-2018.12-Linux-x86_64.sh
-./Anaconda3-2018.12-Linux-x86_64.sh -b -p $1/conda
+#wget https://repo.continuum.io/archive/Anaconda3-2018.12-Linux-x86_64.sh
+#chmod +x Anaconda3-2018.12-Linux-x86_64.sh
+#./Anaconda3-2018.12-Linux-x86_64.sh -b -p $1/conda
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+chmod +x Miniconda3-latest-Linux-x86_64.sh
+./Miniconda3-latest-Linux-x86_64.sh -b -p $1/conda
 cd $1
 rm -rf $1/conda_temp
 

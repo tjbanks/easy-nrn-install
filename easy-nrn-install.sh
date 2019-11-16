@@ -16,20 +16,8 @@ fi
 touch $1/nrnenv
 mkdir $1/nrn
 echo "export NRN_INSTALL_DIR=$1/nrn" >> $1/nrnenv
-echo 'export MPI_DIR=$NRN_INSTALL_DIR/mpi_install' >> $1/nrnenv
 echo 'export NRN_DIR=$NRN_INSTALL_DIR/neuron_install' >> $1/nrnenv
 source $1/nrnenv
-
-mkdir $MPI_DIR
-cd $MPI_DIR
-mkdir install
-wget http://www.mpich.org/static/downloads/3.2.1/mpich-3.2.1.tar.gz
-tar -xf ./mpich-3.2.1.tar.gz
-cd mpich-3.2.1/
-./configure --prefix=$MPI_DIR/install '--enable-shared' --disable-fortran '--disable-f77' '--disable-fc'
-make
-make install
-export PATH="$MPI_DIR/install/bin:$PATH"
 
 mkdir $NRN_DIR
 cd $NRN_DIR
@@ -37,6 +25,8 @@ wget https://neuron.yale.edu/ftp/neuron/versions/v7.7/nrn-7.7.tar.gz
 wget https://neuron.yale.edu/ftp/neuron/versions/v7.7/iv-19.tar.gz
 tar xzf iv-19.tar.gz
 tar xzf nrn-7.7.tar.gz
+rm iv-19.tar.gz
+rm nrn-7.7.tar.gz
 # renaming the new directories iv and nrn makes life simpler later on
 mv iv-19 iv
 mv nrn-7.7 nrn
@@ -52,11 +42,11 @@ make install
 
 cd ..
 cd nrn
-./configure --prefix=`pwd` --with-iv=$NRN_DIR/iv --with-nrnpython=`which python` --with-paranrn
+./configure --prefix=`pwd` --with-iv=$NRN_DIR/iv --with-nrnpython=`which python`
 make
 make install
 
-cd neuron_install/nrn/src/nrnpython/
+cd $NRN_DIR/nrn/src/nrnpython/
 python setup.py install
 
 #Make it easy to use
