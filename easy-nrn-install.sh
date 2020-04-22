@@ -56,7 +56,8 @@ cd nrn
 make
 make install
 
-cd neuron_install/nrn/src/nrnpython/
+cd $1
+cd nrn/neuron_install/nrn/src/nrnpython/
 python setup.py install
 
 #Make it easy to use
