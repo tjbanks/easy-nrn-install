@@ -1,0 +1,1 @@
+sudo yum install -y gcc gcc-c++ kernel-devel make perl dkms git vim ncurses-devl.x86_64 readline-devel.x86_64 libX11-devel.x86_64 cmake
