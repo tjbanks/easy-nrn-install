@@ -48,9 +48,9 @@ make -j install
 
 echo "Adding openmpi to .bashrc"
 echo "#BEGIN TYLER'S INSTALL SCRIPT" >> ~/.bashrc
-export PATH=$installdir/openmpi-install:$PATH
+export PATH=$installdir/openmpi-install/bin:$PATH
 
-echo "export PATH=$installdir/openmpi-install:\$PATH" >> ~/.bashrc
+echo "export PATH=$installdir/openmpi-install/bin:\$PATH" >> ~/.bashrc
 
 cd $installdir
 echo "Installing mpi4py"
@@ -72,9 +72,8 @@ cd neuron
 git clone http://github.com/neuronsimulator/nrn
 cd nrn
 sh build.sh
-./configure --prefix=`pwd` --without-x --with-paranrn=$installdir/openmpi-install/lib/openmpi --with-nrnpython=python --disable-rx3d
+./configure --prefix=`pwd` --without-x --with-paranrn --with-nrnpython=python --disable-rx3d  
 make -j install
-
 # Put these lines in your ~/.bashrc file
 export PYTHONPATH=$installdir/neuron/nrn/lib/python:$PYTHONPATH
 export PATH=$installdir/neuron/nrn/x86_64/bin:$PATH
