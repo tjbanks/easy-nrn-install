@@ -17,12 +17,9 @@ cd neuron
 git clone http://github.com/neuronsimulator/nrn
 cd nrn
 sh build.sh
+autoreconf --force --install
 ./configure --prefix=`pwd` --without-x --with-paranrn --with-nrnpython=python --disable-rx3d  
 make -j install
-
-# Put these lines in your ~/.bashrc file
-export PYTHONPATH=$HOME/neuron/nrn/lib/python:$PYTHONPATH
-export PATH=$HOME/neuron/nrn/x86_64/bin:$PATH
 
 # install bmtk
 git clone https://github.com/AllenInstitute/bmtk.git
