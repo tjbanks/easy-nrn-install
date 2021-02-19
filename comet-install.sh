@@ -14,6 +14,7 @@ module load openmpi_ib
 
 wget https://neuron.yale.edu/ftp/neuron/versions/v7.7/nrn-7.7.tar.gz
 tar xzf nrn-7.7.tar.gz
+mv nrn-7.7 nrn
 cd nrn
 sh build.sh
 autoreconf --force --install
