@@ -12,9 +12,7 @@ sh Anaconda3-5.1.0-Linux-x86_64.sh
 module load gnu
 module load openmpi_ib
 
-mkdir neuron
-cd neuron
-git clone http://github.com/neuronsimulator/nrn
+wget https://neuron.yale.edu/ftp/neuron/versions/v7.7/nrn-7.7.tar.gz
 cd nrn
 sh build.sh
 autoreconf --force --install
