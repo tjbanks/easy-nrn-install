@@ -23,7 +23,8 @@ make -j install
 cd ..
 
 # install bmtk
-git clone https://github.com/AllenInstitute/bmtk.git
+# using to be git clone https://github.com/AllenInstitute/bmtk.git
+git clone https://github.com/aaberbach/bmtk.git
 cd bmtk
 python setup.py install -user
 cd ..
